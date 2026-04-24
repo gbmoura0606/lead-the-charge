@@ -67,6 +67,7 @@ Create **2 Railway services** from the same repo (monorepo setup):
   ```
 - Environment variables:
   - `VITE_API_URL=https://<your-backend-domain>.up.railway.app`
+  - `VITE_ALLOWED_HOST=<your-frontend-domain>.up.railway.app` (optional, for custom preview host allow-list)
 
 After both are deployed:
 1. Copy backend public URL into frontend `VITE_API_URL` and redeploy frontend.
