@@ -1,28 +1,24 @@
-const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
-const isBrowser = typeof window !== 'undefined'
-const isLocalhost = isBrowser && ['localhost', '127.0.0.1'].includes(window.location.hostname)
-
-const API_URL = configuredApiUrl || (isLocalhost ? 'http://localhost:8000' : '')
-
-async function request(path) {
-  const targetUrl = `${API_URL}${path}`
-  const response = await fetch(targetUrl)
-
-  if (!response.ok) {
-    throw new Error(`Request failed (${response.status}) at ${targetUrl}`)
-  }
-
-  return response.json()
-}
+// Backwards-compatible API helpers.
+// New code should import from `src/api/client.js`.
+import { api } from '../api/client'
 
 export function fetchStats() {
-  return request('/stats')
+  return api.getBasicStats()
 }
 
 export function fetchInsights() {
-  return request('/insights')
+  // Insight endpoint was removed in favor of pure data exploration.
+  return Promise.resolve({ insights: [] })
+}
+
+export function fetchMatches() {
+  return api.getMatches()
+}
+
+export function fetchMatchById(id) {
+  return api.getMatch(id)
 }
 
 export function getResolvedApiUrl() {
-  return API_URL || '(same-origin)'
+  return api.getApiUrl()
 }
