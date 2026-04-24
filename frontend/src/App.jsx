@@ -1,52 +1,24 @@
-import { useEffect, useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import InsightsList from './components/InsightsList'
-import PerformanceTable from './components/PerformanceTable'
-import SummaryCards from './components/SummaryCards'
-import { fetchInsights, fetchStats } from './services/api'
+import { api } from './api/client'
+import Layout from './components/Layout'
+import DailyLogPage from './pages/DailyLogPage'
+import DashboardPage from './pages/DashboardPage'
+import MatchDetailPage from './pages/MatchDetailPage'
+import MatchesPage from './pages/MatchesPage'
+import NotesPage from './pages/NotesPage'
 
 export default function App() {
-  const [stats, setStats] = useState(null)
-  const [insights, setInsights] = useState([])
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    async function loadDashboard() {
-      try {
-        const [statsData, insightsData] = await Promise.all([fetchStats(), fetchInsights()])
-        setStats(statsData)
-        setInsights(insightsData.insights)
-      } catch (err) {
-        setError('Unable to load dashboard data. Check if backend is running.')
-      }
-    }
-
-    loadDashboard()
-  }, [])
-
   return (
-    <main className="container">
-      <header>
-        <p className="eyebrow">wave culture performance lab</p>
-        <h1>Lead The Charge</h1>
-      </header>
-
-      {error && <p className="error">{error}</p>}
-
-      {stats && (
-        <>
-          <SummaryCards summary={stats.summary} />
-          <div className="split-grid">
-            <PerformanceTable
-              title="Champion Performance"
-              rows={stats.champion_performance}
-              labelKey="champion"
-            />
-            <PerformanceTable title="Role Performance" rows={stats.role_performance} labelKey="role" />
-          </div>
-          <InsightsList insights={insights} />
-        </>
-      )}
-    </main>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<DashboardPage api={api} />} />
+        <Route path="/matches" element={<MatchesPage api={api} />} />
+        <Route path="/matches/:id" element={<MatchDetailPage api={api} />} />
+        <Route path="/notes" element={<NotesPage api={api} />} />
+        <Route path="/daily-log" element={<DailyLogPage api={api} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Layout>
   )
 }

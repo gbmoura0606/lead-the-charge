@@ -1,12 +1,15 @@
 from fastapi import APIRouter
 
-from app.services.data_service import load_matches
-from app.services.stats_service import calculate_stats
+from app.services.exploration_service import basic_stats, champion_stats
 
 router = APIRouter()
 
 
-@router.get("/stats")
-def get_stats():
-    matches = load_matches()
-    return calculate_stats(matches)
+@router.get('/stats/basic')
+def get_basic_stats():
+    return basic_stats()
+
+
+@router.get('/champions')
+def get_champion_stats():
+    return {'champions': champion_stats()}
