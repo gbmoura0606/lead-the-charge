@@ -1,0 +1,167 @@
+[
+  {
+    "id": "EUW1_1001",
+    "date": "2026-04-01",
+    "champion": "Ahri",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 9,
+    "deaths": 3,
+    "assists": 8,
+    "duration_minutes": 31
+  },
+  {
+    "id": "EUW1_1002",
+    "date": "2026-04-02",
+    "champion": "Ahri",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 4,
+    "deaths": 7,
+    "assists": 6,
+    "duration_minutes": 37
+  },
+  {
+    "id": "EUW1_1003",
+    "date": "2026-04-03",
+    "champion": "Orianna",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 6,
+    "deaths": 2,
+    "assists": 11,
+    "duration_minutes": 29
+  },
+  {
+    "id": "EUW1_1004",
+    "date": "2026-04-04",
+    "champion": "Sylas",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 5,
+    "deaths": 9,
+    "assists": 4,
+    "duration_minutes": 34
+  },
+  {
+    "id": "EUW1_1005",
+    "date": "2026-04-05",
+    "champion": "Ahri",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 11,
+    "deaths": 1,
+    "assists": 9,
+    "duration_minutes": 27
+  },
+  {
+    "id": "EUW1_1006",
+    "date": "2026-04-07",
+    "champion": "Taliyah",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 3,
+    "deaths": 8,
+    "assists": 7,
+    "duration_minutes": 35
+  },
+  {
+    "id": "EUW1_1007",
+    "date": "2026-04-08",
+    "champion": "Orianna",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 7,
+    "deaths": 3,
+    "assists": 10,
+    "duration_minutes": 30
+  },
+  {
+    "id": "EUW1_1008",
+    "date": "2026-04-10",
+    "champion": "Akali",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 10,
+    "deaths": 10,
+    "assists": 2,
+    "duration_minutes": 39
+  },
+  {
+    "id": "EUW1_1009",
+    "date": "2026-04-11",
+    "champion": "Ahri",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 8,
+    "deaths": 2,
+    "assists": 12,
+    "duration_minutes": 28
+  },
+  {
+    "id": "EUW1_1010",
+    "date": "2026-04-12",
+    "champion": "Sylas",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 4,
+    "deaths": 8,
+    "assists": 5,
+    "duration_minutes": 36
+  },
+  {
+    "id": "EUW1_1011",
+    "date": "2026-04-13",
+    "champion": "Taliyah",
+    "role": "Jungle",
+    "result": "Win",
+    "kills": 6,
+    "deaths": 4,
+    "assists": 14,
+    "duration_minutes": 33
+  },
+  {
+    "id": "EUW1_1012",
+    "date": "2026-04-14",
+    "champion": "Ahri",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 12,
+    "deaths": 3,
+    "assists": 7,
+    "duration_minutes": 26
+  },
+  {
+    "id": "EUW1_1013",
+    "date": "2026-04-15",
+    "champion": "Orianna",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 2,
+    "deaths": 6,
+    "assists": 9,
+    "duration_minutes": 38
+  },
+  {
+    "id": "EUW1_1014",
+    "date": "2026-04-16",
+    "champion": "Ahri",
+    "role": "Mid",
+    "result": "Win",
+    "kills": 9,
+    "deaths": 2,
+    "assists": 10,
+    "duration_minutes": 32
+  },
+  {
+    "id": "EUW1_1015",
+    "date": "2026-04-17",
+    "champion": "Akali",
+    "role": "Mid",
+    "result": "Loss",
+    "kills": 7,
+    "deaths": 11,
+    "assists": 3,
+    "duration_minutes": 41
+  }
+]
