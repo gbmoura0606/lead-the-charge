@@ -65,3 +65,4 @@ def get_daily_logs() -> list[dict[str, Any]]:
 
 def save_daily_logs(logs: list[dict[str, Any]]) -> None:
     daily_logs_store.write(logs)
+

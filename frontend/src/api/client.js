@@ -1,19 +1,36 @@
-const configuredApiUrl = import.meta.env.VITE_API_URL?.trim()
-const isBrowser = typeof window !== 'undefined'
-const isLocalhost = isBrowser && ['localhost', '127.0.0.1'].includes(window.location.hostname)
-
-const API_URL = configuredApiUrl || (isLocalhost ? 'http://localhost:8000' : '')
+const API_URL = 'http://localhost:8000'
 
 async function request(path, options) {
-  const response = await fetch(`${API_URL}${path}`, options)
-  if (!response.ok) {
-    throw new Error(`Request failed (${response.status}) for ${path}`)
+  const requestUrl = `${API_URL}${path}`
+
+  try {
+    const response = await fetch(requestUrl, options)
+    const payload = await response.json()
+
+    console.log('[API] Response', {
+      path,
+      status: response.status,
+      ok: response.ok,
+      payload
+    })
+
+    if (!response.ok) {
+      throw new Error(payload?.detail || `Request failed (${response.status}) for ${path}`)
+    }
+
+    return payload
+  } catch (error) {
+    console.error('[API] Request failed', {
+      path,
+      requestUrl,
+      error: error instanceof Error ? error.message : String(error)
+    })
+    throw error
   }
-  return response.json()
 }
 
 export const api = {
-  getApiUrl: () => API_URL || '(same-origin)',
+  getApiUrl: () => API_URL,
   sync: () => request('/sync'),
   getMatches: () => request('/matches'),
   getMatch: (id) => request(`/matches/${id}`),
@@ -36,6 +53,35 @@ export const api = {
   getDailyLogs: () => request('/daily-logs'),
   createDailyLog: (payload) =>
     request('/daily-logs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getVods: () => request('/vods'),
+  createVod: (payload) =>
+    request('/vod', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getVodNotes: (id) => request(`/vod/${id}/notes`),
+  createVodNote: (id, payload) =>
+    request(`/vod/${id}/notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getFundamentals: () => request('/fundamentals'),
+  getFundamental: (id) => request(`/fundamentals/${id}`),
+  createFundamental: (payload) =>
+    request('/fundamentals', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getFundamentalNotes: (id) => request(`/fundamentals/${id}/notes`),
+  createFundamentalNote: (id, payload) =>
+    request(`/fundamentals/${id}/notes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
