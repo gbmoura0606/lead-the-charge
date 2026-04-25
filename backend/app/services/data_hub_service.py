@@ -9,11 +9,19 @@ SUMMONER_FILE = DATA_DIR / "summoner.json"
 MATCHES_FILE = DATA_DIR / "matches.json"
 NOTES_FILE = DATA_DIR / "notes.json"
 DAILY_LOGS_FILE = DATA_DIR / "daily_logs.json"
+VODS_FILE = DATA_DIR / "vods.json"
+VOD_NOTES_FILE = DATA_DIR / "vod_notes.json"
+FUNDAMENTALS_FILE = DATA_DIR / "fundamentals.json"
+FUNDAMENTAL_NOTES_FILE = DATA_DIR / "fundamental_notes.json"
 
 summoner_store = JsonStore(SUMMONER_FILE, default={})
 matches_store = JsonStore(MATCHES_FILE, default=[])
 notes_store = JsonStore(NOTES_FILE, default=[])
 daily_logs_store = JsonStore(DAILY_LOGS_FILE, default=[])
+vods_store = JsonStore(VODS_FILE, default=[])
+vod_notes_store = JsonStore(VOD_NOTES_FILE, default=[])
+fundamentals_store = JsonStore(FUNDAMENTALS_FILE, default=[])
+fundamental_notes_store = JsonStore(FUNDAMENTAL_NOTES_FILE, default=[])
 
 
 def utc_now_iso() -> str:

@@ -9,6 +9,8 @@ from app.routes.fundamentals import router as fundamentals_router
 from app.routes.matches import router as matches_router
 from app.routes.notes import router as notes_router
 from app.routes.stats import router as stats_router
+from app.routes.vods import router as vods_router
+from app.routes.fundamentals import router as fundamentals_router
 from app.routes.sync import router as sync_router
 from app.routes.vods import router as vods_router
 from app.services.vod_fundamentals_service import initialize_vod_review_data
