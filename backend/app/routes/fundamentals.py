@@ -1,79 +1,54 @@
-from uuid import uuid4
+import logging
 
 from fastapi import APIRouter, HTTPException
 
 from app.models.fundamental import FundamentalCreate, FundamentalNoteCreate
-from app.services.data_hub_service import (
-    get_fundamental_notes,
-    get_fundamentals,
-    save_fundamental_notes,
-    save_fundamentals,
-    utc_now_iso,
+from app.services.vod_fundamentals_service import (
+    create_fundamental,
+    create_fundamental_note,
+    get_fundamental_by_id,
+    list_fundamental_notes,
+    list_fundamentals,
 )
 
 router = APIRouter()
-
-DEFAULT_FUNDAMENTALS = [
-    {'name': 'Map Awareness', 'description': 'Tracking map state and threats before committing actions.'},
-    {'name': 'Positioning', 'description': 'Standing where you can pressure safely and avoid unnecessary risk.'},
-    {'name': 'Mechanics', 'description': 'Execution quality in movement, ability use, and trading.'},
-    {'name': 'Teamfighting', 'description': 'Role execution, target selection, and timing in grouped fights.'},
-    {'name': 'Decision Making', 'description': 'Choosing the highest-value play from available options.'},
-]
-
-
-def ensure_defaults() -> list[dict]:
-    fundamentals = get_fundamentals()
-    if fundamentals:
-        return fundamentals
-
-    seeded = []
-    for item in DEFAULT_FUNDAMENTALS:
-        seeded.append({'id': str(uuid4()), **item})
-    save_fundamentals(seeded)
-    return seeded
+logger = logging.getLogger(__name__)
 
 
 @router.get('/fundamentals')
-def list_fundamentals():
-    return {'fundamentals': ensure_defaults()}
+def get_fundamentals():
+    logger.info('GET /fundamentals')
+    return {'fundamentals': list_fundamentals()}
 
 
 @router.post('/fundamentals')
-def create_fundamental(payload: FundamentalCreate):
-    fundamentals = ensure_defaults()
-    fundamental = {'id': str(uuid4()), **payload.model_dump()}
-    fundamentals.append(fundamental)
-    save_fundamentals(fundamentals)
-    return fundamental
+def post_fundamental(payload: FundamentalCreate):
+    logger.info('POST /fundamentals')
+    return create_fundamental(payload.name, payload.description)
 
 
 @router.get('/fundamentals/{fundamental_id}')
 def get_fundamental(fundamental_id: str):
-    for fundamental in ensure_defaults():
-        if fundamental.get('id') == fundamental_id:
-            return fundamental
-    raise HTTPException(status_code=404, detail='Fundamental not found')
+    logger.info('GET /fundamentals/%s', fundamental_id)
+    fundamental = get_fundamental_by_id(fundamental_id)
+    if not fundamental:
+        raise HTTPException(status_code=404, detail='Fundamental not found')
+    return fundamental
 
 
 @router.post('/fundamentals/{fundamental_id}/notes')
-def create_fundamental_note(fundamental_id: str, payload: FundamentalNoteCreate):
-    get_fundamental(fundamental_id)
-    notes = get_fundamental_notes()
-    note = {
-        'id': str(uuid4()),
-        'fundamental_id': fundamental_id,
-        'text': payload.text,
-        'created_at': utc_now_iso(),
-    }
-    notes.append(note)
-    save_fundamental_notes(notes)
+def post_fundamental_note(fundamental_id: str, payload: FundamentalNoteCreate):
+    logger.info('POST /fundamentals/%s/notes', fundamental_id)
+    note = create_fundamental_note(fundamental_id, payload.text)
+    if not note:
+        raise HTTPException(status_code=404, detail='Fundamental not found')
     return note
 
 
 @router.get('/fundamentals/{fundamental_id}/notes')
-def list_fundamental_notes(fundamental_id: str):
-    get_fundamental(fundamental_id)
-    notes = [note for note in get_fundamental_notes() if note.get('fundamental_id') == fundamental_id]
-    notes.sort(key=lambda item: item.get('created_at', ''), reverse=True)
+def get_fundamental_notes(fundamental_id: str):
+    logger.info('GET /fundamentals/%s/notes', fundamental_id)
+    notes = list_fundamental_notes(fundamental_id)
+    if notes is None:
+        raise HTTPException(status_code=404, detail='Fundamental not found')
     return {'notes': notes}

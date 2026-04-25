@@ -17,15 +17,27 @@ export default function DashboardPage({ api }) {
           api.getMatches(),
           api.getChampions()
         ])
+        console.log('[Dashboard] Loaded initial data', { statsRes, matchesRes, championsRes })
         setStats(statsRes)
         setMatches(matchesRes.matches.slice(0, 8))
         setChampions(championsRes.champions)
       } catch (err) {
-        setError(err.message)
+        const message = err instanceof Error ? err.message : 'Failed to load dashboard'
+        console.error('[Dashboard] Failed to load data', err)
+        setError(message)
       }
     }
     load()
   }, [api])
+
+  async function testBackendConnection() {
+    try {
+      const response = await api.getMatches()
+      console.log('[TEST] GET /matches success', response)
+    } catch (err) {
+      console.error('[TEST] GET /matches failed', err)
+    }
+  }
 
   if (error) {
     return <p className="error">{error}</p>
@@ -39,10 +51,14 @@ export default function DashboardPage({ api }) {
     <div className="stack-lg">
       <div className="row between">
         <h2>Data Dashboard</h2>
-        <button className="btn" onClick={() => api.sync().then(() => window.location.reload())}>
-          Sync latest
-        </button>
+        <div className="row">
+          <button className="btn" onClick={testBackendConnection}>Test backend connection</button>
+          <button className="btn" onClick={() => api.sync().then(() => window.location.reload()).catch((err) => console.error('[Dashboard] Sync failed', err))}>
+            Sync latest
+          </button>
+        </div>
       </div>
+      <p className="label">API Base URL: {api.getApiUrl()}</p>
       <StatCards stats={stats} />
 
       <div className="grid two-col">

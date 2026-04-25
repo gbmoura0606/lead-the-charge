@@ -74,34 +74,3 @@ def get_daily_logs() -> list[dict[str, Any]]:
 def save_daily_logs(logs: list[dict[str, Any]]) -> None:
     daily_logs_store.write(logs)
 
-
-def get_vods() -> list[dict[str, Any]]:
-    return vods_store.read()
-
-
-def save_vods(vods: list[dict[str, Any]]) -> None:
-    vods_store.write(vods)
-
-
-def get_vod_notes() -> list[dict[str, Any]]:
-    return vod_notes_store.read()
-
-
-def save_vod_notes(notes: list[dict[str, Any]]) -> None:
-    vod_notes_store.write(notes)
-
-
-def get_fundamentals() -> list[dict[str, Any]]:
-    return fundamentals_store.read()
-
-
-def save_fundamentals(fundamentals: list[dict[str, Any]]) -> None:
-    fundamentals_store.write(fundamentals)
-
-
-def get_fundamental_notes() -> list[dict[str, Any]]:
-    return fundamental_notes_store.read()
-
-
-def save_fundamental_notes(notes: list[dict[str, Any]]) -> None:
-    fundamental_notes_store.write(notes)
