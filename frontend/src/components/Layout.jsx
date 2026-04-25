@@ -4,7 +4,9 @@ const links = [
   { to: '/', label: 'Dashboard' },
   { to: '/matches', label: 'Matches' },
   { to: '/notes', label: 'Notes' },
-  { to: '/daily-log', label: 'Daily Log' }
+  { to: '/daily-log', label: 'Daily Log' },
+  { to: '/vod-review', label: 'VOD Review' },
+  { to: '/fundamentals', label: 'Fundamentals' }
 ]
 
 export default function Layout({ children }) {

@@ -7,6 +7,9 @@ import DashboardPage from './pages/DashboardPage'
 import MatchDetailPage from './pages/MatchDetailPage'
 import MatchesPage from './pages/MatchesPage'
 import NotesPage from './pages/NotesPage'
+import VodReviewPage from './pages/VodReviewPage'
+import FundamentalsPage from './pages/FundamentalsPage'
+import FundamentalDetailPage from './pages/FundamentalDetailPage'
 
 export default function App() {
   return (
@@ -17,6 +20,9 @@ export default function App() {
         <Route path="/matches/:id" element={<MatchDetailPage api={api} />} />
         <Route path="/notes" element={<NotesPage api={api} />} />
         <Route path="/daily-log" element={<DailyLogPage api={api} />} />
+        <Route path="/vod-review" element={<VodReviewPage api={api} />} />
+        <Route path="/fundamentals" element={<FundamentalsPage api={api} />} />
+        <Route path="/fundamentals/:id" element={<FundamentalDetailPage api={api} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>

@@ -39,5 +39,35 @@ export const api = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
+    }),
+  getVods: () => request('/vods'),
+  createVod: (payload) =>
+    request('/vod', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getVodNotes: (id) => request(`/vod/${id}/notes`),
+  createVodNote: (id, payload) =>
+    request(`/vod/${id}/notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getFundamentals: () => request('/fundamentals'),
+  getFundamental: (id) => request(`/fundamentals/${id}`),
+  createFundamental: (payload) =>
+    request('/fundamentals', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }),
+  getFundamentalNotes: (id) => request(`/fundamentals/${id}/notes`),
+  createFundamentalNote: (id, payload) =>
+    request(`/fundamentals/${id}/notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     })
+
 }
